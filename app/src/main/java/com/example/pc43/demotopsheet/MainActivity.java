@@ -45,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
         DialogOnClickListener();
         dialog = new Dialog(MainActivity.this, R.style.MyDialog);
         Window window = dialog.getWindow();
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        window.setGravity(Gravity.TOP);
-        int width = ViewGroup.LayoutParams.MATCH_PARENT;
-        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setLayout(width, height);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (window != null) {
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            window.setGravity(Gravity.TOP);
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setLayout(width, height);
+            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
