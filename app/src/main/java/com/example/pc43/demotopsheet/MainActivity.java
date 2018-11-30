@@ -2,10 +2,10 @@ package com.example.pc43.demotopsheet;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeView() {
         mFilterIcon = findViewById(R.id.filterIcon);
-
     }
 
     public void showTopSheetDialog() {
@@ -45,17 +44,20 @@ public class MainActivity extends AppCompatActivity {
         DialogOnClickListener();
         dialog = new Dialog(MainActivity.this, R.style.MyDialog);
         Window window = dialog.getWindow();
+        WindowManager.LayoutParams lWindowParams = null;
         if (window != null) {
+            window.setBackgroundDrawableResource(android.R.color.transparent);
             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
             window.setGravity(Gravity.TOP);
-            int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            dialog.getWindow().setLayout(width, height);
-            dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            lWindowParams = new WindowManager.LayoutParams();
+            lWindowParams.copyFrom(dialog.getWindow().getAttributes());
+            lWindowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         }
         dialog.setContentView(view);
-        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+        dialog.getWindow().setAttributes(lWindowParams);
+        dialog.setCanceledOnTouchOutside(true);
     }
 
     private void DialogOnClickListener() {
